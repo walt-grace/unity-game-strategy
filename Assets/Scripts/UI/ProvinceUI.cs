@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -6,6 +7,7 @@ public class ProvinceUI : MonoBehaviour, IGameUI {
     VisualElement _constructContainer;
     Label _provinceName;
     Label _barracksLevel;
+    Label _timeLeftLabel;
     Province _selectedProvince;
 
 
@@ -15,9 +17,11 @@ public class ProvinceUI : MonoBehaviour, IGameUI {
         _constructContainer = rootVisualElement.Q<VisualElement>("constructContainer");
         _provinceName = rootVisualElement.Q<Label>("provinceName");
         _barracksLevel = rootVisualElement.Q<Label>("barracksLevel");
+        _timeLeftLabel = rootVisualElement.Q<Label>("timeLeft");
         _provinceContainer.Q<Button>("constructButton").clickable.clicked += ShowConstructPanel;
         _constructContainer.Q<Button>("barracksButton").clickable.clicked += () => AddBuilding(BuildingType.Barracks);
     }
+
 
     public void ShowPanel(ISelectable selectable) {
         _selectedProvince = (Province) selectable;
@@ -36,9 +40,11 @@ public class ProvinceUI : MonoBehaviour, IGameUI {
      *
      */
     void ShowProvincePanel() {
+        Building selectedProvinceBuilding = _selectedProvince.Buildings[BuildingType.Barracks];
         _provinceName.text = _selectedProvince.provinceName;
-        _barracksLevel.text = _selectedProvince.Buildings[BuildingType.Barracks].BuildingLevel.ToString();
+        _barracksLevel.text = selectedProvinceBuilding.BuildingLevel.ToString();
         _provinceContainer.style.display = DisplayStyle.Flex;
+        StartCoroutine(selectedProvinceBuilding.GetTimeLeft(_timeLeftLabel));
     }
 
     /**

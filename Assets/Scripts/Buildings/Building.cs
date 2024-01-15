@@ -3,6 +3,13 @@ public enum BuildingType {
     TankFactory,
 }
 public abstract class Building {
-    public abstract string GetName();
-    public abstract BuildingType GetBuildingType();
+    public int BuildingLevel;
+    public abstract BuildingType GetBuildingType { get; }
+
+    /**
+     *
+     */
+    public void UpdateBuilding() {
+        BuildingLevel++;
+    }
 }

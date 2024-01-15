@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,9 +5,8 @@ public class ProvinceUI : MonoBehaviour, IGameUI {
     VisualElement _provinceContainer;
     VisualElement _constructContainer;
     Label _provinceName;
-    ListView _buildingsView;
+    Label _barracksLevel;
     Province _selectedProvince;
-
 
 
     void Start() {
@@ -18,22 +14,16 @@ public class ProvinceUI : MonoBehaviour, IGameUI {
         _provinceContainer = rootVisualElement.Q<VisualElement>("provinceContainer");
         _constructContainer = rootVisualElement.Q<VisualElement>("constructContainer");
         _provinceName = rootVisualElement.Q<Label>("provinceName");
+        _barracksLevel = rootVisualElement.Q<Label>("barracksLevel");
         _provinceContainer.Q<Button>("constructButton").clickable.clicked += ShowConstructPanel;
-        _constructContainer.Q<Button>("barracksButton").clickable.clicked += () => AddBuilding(new Barracks());
-        _buildingsView = _provinceContainer.Q<ListView>("buildingsView");
+        _constructContainer.Q<Button>("barracksButton").clickable.clicked += () => AddBuilding(BuildingType.Barracks);
     }
 
-    /**
-     *
-     */
     public void ShowPanel(ISelectable selectable) {
         _selectedProvince = (Province) selectable;
         ShowProvincePanel();
     }
 
-    /**
-     *
-     */
     public void HidePanel() {
         HideProvincePanel();
     }
@@ -47,8 +37,7 @@ public class ProvinceUI : MonoBehaviour, IGameUI {
      */
     void ShowProvincePanel() {
         _provinceName.text = _selectedProvince.provinceName;
-        IList list = _selectedProvince.buildings.Values.Select(obj => obj.GetName()).ToList();
-        _buildingsView.itemsSource = list;
+        _barracksLevel.text = _selectedProvince.Buildings[BuildingType.Barracks].BuildingLevel.ToString();
         _provinceContainer.style.display = DisplayStyle.Flex;
     }
 
@@ -77,8 +66,8 @@ public class ProvinceUI : MonoBehaviour, IGameUI {
     /**
      *
      */
-    void AddBuilding(Building building) {
-        _selectedProvince.AddBuilding(building);
+    void AddBuilding(BuildingType buildingType) {
+        _selectedProvince.AddBuilding(buildingType);
         HideConstructPanel();
         ShowProvincePanel();
     }

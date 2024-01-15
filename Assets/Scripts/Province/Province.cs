@@ -5,10 +5,11 @@ using UnityEngine;
 public class Province : MonoBehaviour, ISelectable {
     SpriteRenderer _sprite;
     public string provinceName;
-    public Dictionary<BuildingType, Building> buildings = new();
+    public readonly Dictionary<BuildingType, Building> Buildings = new();
 
     void Start() {
         _sprite = GetComponent<SpriteRenderer>();
+        SetupBuilding();
     }
 
     public void ApplySelection() {
@@ -23,9 +24,18 @@ public class Province : MonoBehaviour, ISelectable {
         return UIType.Province;
     }
 
-    public void AddBuilding(Building building) {
-        if (buildings.ContainsKey(building.GetBuildingType())) {
+    /**
+     *
+     */
+    public void AddBuilding(BuildingType buildingType) {
+        Building building = Buildings[buildingType];
+        building.UpdateBuilding();
+    }
 
-        }
+    /**
+     *
+     */
+    void SetupBuilding() {
+        Buildings[BuildingType.Barracks] = new Barracks();
     }
 }

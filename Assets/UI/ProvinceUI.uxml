@@ -1,9 +1,20 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/StyleSheets/GeneralStyleSheet.uss?fileID=7433441132597879392&amp;guid=29c19aabfc4244a84940a84f7ab35a73&amp;type=3#GeneralStyleSheet" />
-    <ui:VisualElement name="provinceContainer" class="container" style="flex-grow: 1; position: absolute; top: 80%; width: 50%; height: 20%; align-items: center; justify-content: center; align-self: center; flex-direction: row; display: flex; background-color: rgba(91, 53, 53, 0.43); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px;">
-        <ui:ListView focusable="true" name="buildingsView" />
-        <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="provinceName" text="Province Name" class="ui" />
-        <ui:Button text="Construct" parse-escape-sequences="true" display-tooltip-when-elided="true" name="constructButton" class="ui" style="align-items: auto; justify-content: flex-start;" />
+    <ui:VisualElement name="provinceContainer" class="container" style="flex-grow: 1; position: absolute; top: 60%; width: 70%; height: 40%; align-items: center; justify-content: flex-end; align-self: center; flex-direction: column; display: none; background-color: rgba(91, 53, 53, 0.43); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; left: auto;">
+        <ui:VisualElement style="flex-grow: 1; width: 50%; justify-content: space-around;">
+            <ui:VisualElement class="building" style="flex-grow: 1; flex-direction: row; width: auto; justify-content: space-around;">
+                <ui:Label tabindex="-1" text="Barracks: " parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                <ui:Label tabindex="-1" text="0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="barracksLavel" style="flex-direction: row;" />
+            </ui:VisualElement>
+            <ui:VisualElement class="building" style="flex-grow: 1; flex-direction: row; width: auto; justify-content: space-around;">
+                <ui:Label tabindex="-1" text="Tank Factory" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                <ui:Label tabindex="-1" text="0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="tankFactoryLevel" style="flex-direction: row;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; justify-content: flex-start; align-items: center;">
+            <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="provinceName" text="Province Name" class="ui" />
+            <ui:Button text="Construct" parse-escape-sequences="true" display-tooltip-when-elided="true" name="constructButton" class="ui" style="align-items: auto; justify-content: flex-start;" />
+        </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="constructContainer" class="container" style="flex-grow: 1; justify-content: flex-end; display: none; position: absolute; left: 10%; top: 10%; right: 10%; bottom: 10%;">
         <ui:Button text="Barracks" parse-escape-sequences="true" display-tooltip-when-elided="true" name="barracksButton" />

@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/StyleSheets/GeneralStyleSheet.uss?fileID=7433441132597879392&amp;guid=29c19aabfc4244a84940a84f7ab35a73&amp;type=3#GeneralStyleSheet" />
+    <ui:VisualElement name="provinceContainer" class="container" style="flex-grow: 1; position: absolute; top: 80%; width: 50%; height: 20%; align-items: center; justify-content: center; align-self: center; flex-direction: row; display: flex; background-color: rgba(91, 53, 53, 0.43); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px;">
+        <ui:ListView focusable="true" name="buildingsView" />
+        <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="provinceName" text="Province Name" class="ui" />
+        <ui:Button text="Construct" parse-escape-sequences="true" display-tooltip-when-elided="true" name="constructButton" class="ui" style="align-items: auto; justify-content: flex-start;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="constructContainer" class="container" style="flex-grow: 1; justify-content: flex-end; display: none; position: absolute; left: 10%; top: 10%; right: 10%; bottom: 10%;">
+        <ui:Button text="Barracks" parse-escape-sequences="true" display-tooltip-when-elided="true" name="barracksButton" />
+        <ui:Button text="Tank Factory" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+    </ui:VisualElement>
+</ui:UXML>

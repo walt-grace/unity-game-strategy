@@ -27,15 +27,6 @@ public class Province : MonoBehaviour, ISelectable {
     /**
      *
      */
-    public void AddBuilding(BuildingType buildingType) {
-        Building building = Buildings[buildingType];
-        building.StartConstruction();
-        StartCoroutine(building.CheckConstruction());
-    }
-
-    /**
-     *
-     */
     void SetupBuilding() {
         Buildings[BuildingType.Barracks] = new Barracks();
     }

@@ -1,56 +1,37 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public enum BuildingType {
     Barracks,
     TankFactory,
 }
 
-public abstract class Building {
+public class Building {
     public int BuildingLevel;
-    float? _beginConstructionTime;
-    float? _secondsSinceConstruction;
-    const float ConstructionTime = 360000;
+    public float? BeginConstructionTime;
+    public float ConstructionTime = 5;
+    public float ConstructionTimeLeft;
 
     /**
      *
      */
     public void StartConstruction() {
-        _beginConstructionTime = Time.realtimeSinceStartup;
+        BeginConstructionTime = Time.realtimeSinceStartup;
     }
 
     /**
      *
      */
-    public IEnumerator CheckConstruction() {
-        while (true) {
-            if (_secondsSinceConstruction >= ConstructionTime) {
-                Debug.Log("Finished building");
+    public IEnumerator UpdateConstruction() {
+        while (BeginConstructionTime != null) {
+            ConstructionTimeLeft = ConstructionTime - Time.realtimeSinceStartup - (float) BeginConstructionTime;
+            if (ConstructionTimeLeft >= 0) {
                 BuildingLevel++;
-                _beginConstructionTime = null;
-                _secondsSinceConstruction = null;
+                BeginConstructionTime = null;
+                ConstructionTime += 5;
                 yield break;
             }
-            _secondsSinceConstruction = Time.realtimeSinceStartup - _beginConstructionTime;
             yield return new WaitForSeconds(1f);
         }
-    }
-
-    /**
-     *
-     */
-    public IEnumerator GetTimeLeft(Label remainingTimeLabel) {
-        if (_secondsSinceConstruction == null) yield break;
-        float timeLeft = ConstructionTime - (float) _secondsSinceConstruction;
-        while (timeLeft >= 0) {
-            timeLeft = ConstructionTime - (float) _secondsSinceConstruction;
-            TimeSpan timeSpan = TimeSpan.FromSeconds(timeLeft);
-            remainingTimeLabel.text = $"{timeSpan.Hours:D2}:{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
-            Debug.Log(remainingTimeLabel.text);
-            yield return new WaitForSeconds(1);
-        }
-        remainingTimeLabel.text = $"Not construction";
     }
 }
